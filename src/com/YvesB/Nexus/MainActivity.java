@@ -1,6 +1,5 @@
 package com.YvesB.Nexus;
 
-import java.util.Locale;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -18,7 +17,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 
@@ -29,7 +27,8 @@ public class MainActivity extends Activity {
     private ActionBarDrawerToggle mDrawerToggle;
 
     private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
+    @SuppressWarnings("unused")
+	private CharSequence mTitle;
     private String[] mGalaxyTitles;
 
     @Override
@@ -61,7 +60,7 @@ public class MainActivity extends Activity {
                 R.string.drawer_close  
                 ) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(mTitle);
+                getActionBar().setTitle(mDrawerTitle);
                 invalidateOptionsMenu(); 
             }
 
@@ -79,7 +78,7 @@ public class MainActivity extends Activity {
 
    
 
-  @Override
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main, menu);
@@ -234,7 +233,7 @@ public class MainActivity extends Activity {
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getActionBar().setTitle(mTitle);
+        getActionBar().setTitle(mDrawerTitle);
     }
 
     @Override
@@ -261,14 +260,11 @@ public class MainActivity extends Activity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_items, container, false);
-            int i = getArguments().getInt(ARG_GALAXY_NUMBER);
-            String galaxy = getResources().getStringArray(R.array.items_array)[i];
+            View rootView = inflater.inflate(R.layout.activity_main, container, false);
+           
 
-            int imageId = getResources().getIdentifier(galaxy.toLowerCase(Locale.getDefault()),
-                            "drawable", getActivity().getPackageName());
-            ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
-            getActivity().setTitle(galaxy);
+           
+           
             return rootView;
         }
     }
